@@ -3,7 +3,9 @@
   align-items: center;
   justify-content: space-between;
   z-index: 100;
-  border-bottom: 1px solid lightgrey;
+}
+.headerIcon {
+  padding: 20px;
 }
 .headerLogo {
   object-fit: contain;

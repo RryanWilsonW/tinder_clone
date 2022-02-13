@@ -30,7 +30,7 @@ app.post("/tinder/cards", (req, res) => {
     }
   });
 });
-console.log(process.env.CONNECTION_URL);
+
 //This will retrieve information from out database
 app.get("/tinder/cards", (req, res) => {
   Cards.find((err, data) => {

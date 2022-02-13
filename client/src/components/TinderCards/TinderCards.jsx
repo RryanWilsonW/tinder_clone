@@ -1,27 +1,23 @@
 import { CompareSharp } from "@material-ui/icons";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TinderCard from "react-tinder-card";
 import "./index.css";
+import axios from "../../axios";
 function TinderCards() {
   // This is going to set out state of people to equal an array of objects that includes our data.
-  const [people, setPeople] = useState([
-    {
-      name: "Elon Musk",
-      url: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQU2JRbbl3LBOm_an3eI5iplFhOoLESyBwUfmWDO49BS1EYuGUE",
-    },
-    {
-      name: "Jeff Bezos",
-      url: "https://www.biography.com/.image/ar_4:3%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_1200/MTY2NzA3ODE3OTgwMzcyMjYw/jeff-bezos-andrew-harrer_bloomberg-via-getty-images.jpg",
-    },
-    {
-      name: "Barak Obama",
-      url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/President_Barack_Obama.jpg/1200px-President_Barack_Obama.jpg",
-    },
-    {
-      name: "Chris Evans",
-      url: "https://cdn.britannica.com/28/215028-050-94E9EA1E/American-actor-Chris-Evans-2019.jpg",
-    },
-  ]);
+  const [people, setPeople] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const req = await axios.get("/tinder/cards");
+
+      setPeople(req.data);
+    }
+
+    fetchData();
+  }, []);
+
+  console.log(people);
   // This function will set up the functionality for swiping.
   const swiped = (direction, nameToDelete) => {
     console.log("Removing: " + nameToDelete);
@@ -46,7 +42,7 @@ function TinderCards() {
             >
               {/* This div is going to return a backgrounf image of the person as well as the persons name as an h3 */}
               <div
-                style={{ backgroundImage: "url(" + person.url + ")" }}
+                style={{ backgroundImage: "url(" + person.imgUrl + ")" }}
                 className="card"
               >
                 <h3>{person.name}</h3>
